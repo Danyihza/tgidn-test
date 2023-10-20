@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Type;
+use App\Models\Vehicle;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/dashboard');
+});
+Route::get('/dashboard', function () {
+    $types = Type::all();
+    $data['arrayTypes'] = [];
+    $data['arrayCounts'] = [];
+    foreach ($types as $value) {
+        $data['arrayTypes'][] = $value->name;
+        $data['arrayCounts'][] = Vehicle::where('type_id', $value->id)->count();
+    }
+    return view('dashboard', $data);
 });

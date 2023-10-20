@@ -1,0 +1,42 @@
+openapi: 3.0.0
+info:
+  title: TGIDN Test
+  version: 1.0.0
+servers:
+  - url: http://103.175.216.11
+paths:
+  /api/vehicles:
+    get:
+      tags:
+        - default
+      summary: Get Vehicles
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: type
+          in: query
+          schema:
+            type: string
+          example: mpv
+        - name: from
+          in: query
+          schema:
+            type: string
+          example: '2023-01-21'
+        - name: to
+          in: query
+          schema:
+            type: string
+          example: '2023-10-21'
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '1'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
