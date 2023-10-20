@@ -64,15 +64,17 @@
                         }
                     },
                 },
-                labels: [
-                    'Sedan',
-                    'MPV',
-                    'Truck',
-                    'SUV',
-                    'Crossover',
-                    'Hatchback',
-                    'Pickup',
-                ],
+                @php
+                    $labels = '';
+                    foreach ($arrayTypes as $key => $type) {
+                        if ($key != count($arrayTypes)-1) {
+                            $labels .= '"' . $type . '",';
+                        } else {
+                            $labels .= '"' . $type . '"';
+                        }
+                    }
+                @endphp
+                labels: [{!! $labels !!}],
                 dataLabels: {
                     enabled: true,
                     style: {
@@ -86,14 +88,14 @@
                 yaxis: {
                     labels: {
                         formatter: function(value) {
-                            return (value/500 * 100).toFixed(1) + "%"
+                            return (value / {{ $countTotal }} * 100).toFixed(1) + "%"
                         },
                     },
                 },
                 xaxis: {
                     labels: {
-                        formatter: function(value) {
-                            return (value/500 * 100).toFixed(1) + "%"
+                        formatter: function(value, result) {
+                            return (value / {{ $countTotal }} * 100).toFixed(1) + "%"
                         },
                     },
                     axisTicks: {

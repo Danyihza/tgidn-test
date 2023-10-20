@@ -26,5 +26,6 @@ Route::get('/dashboard', function () {
         $data['arrayTypes'][] = $value->name;
         $data['arrayCounts'][] = Vehicle::where('type_id', $value->id)->count();
     }
+    $data['countTotal'] = array_sum($data['arrayCounts']);
     return view('dashboard', $data);
 });
