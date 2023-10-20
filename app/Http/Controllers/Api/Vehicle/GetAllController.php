@@ -11,7 +11,7 @@ class GetAllController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $q = $request->q;
+        $q = $request->search;
         $type = strtolower($request->type);
         $dateFrom = Carbon::createFromDate($request->from)->startOfDay();
         $dateTo = $request->to
