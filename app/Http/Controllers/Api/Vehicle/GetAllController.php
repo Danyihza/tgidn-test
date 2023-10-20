@@ -35,7 +35,12 @@ class GetAllController extends Controller
 
         if ($type) $query->where('type_name', 'LIKE', "%$type%");
 
-        if ($q) $query->where('name', 'LIKE', "%$q%");
+        if ($q) {
+            $query->where(function ($builder) use ($q) {
+                $builder->where('name', 'LIKE', "%$q%");
+                return $builder->orWhere('reg_no', 'LIKE', "%$q%");
+            });
+        }
 
         if ($dateFrom) $query->whereBetween('created_at', [$dateFrom, $dateTo]);
 
