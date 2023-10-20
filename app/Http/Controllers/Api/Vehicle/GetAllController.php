@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Vehicle;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\VehicleResource;
 use App\Services\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -55,11 +56,6 @@ class GetAllController extends Controller
 
         if (count($result) < 1) return Response::notFoundError();
 
-        return Response::success(data: $result);
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => 'Success',
-        //     'data' => $result
-        // ]);
+        return Response::success(data: VehicleResource::collection($result));
     }
 }
